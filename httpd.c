@@ -53,7 +53,7 @@ void unimplemented(int);
  * return.  Process the request appropriately.
  * Parameters: the socket connected to the client */
 /**********************************************************************/
-void *accept_request(void *arg)
+void *accept_request(void* arg)
 {
     int client = *(int*)arg;
     char buf[1024];
@@ -853,7 +853,7 @@ void unimplemented(int client)
 int main(void)
 {
     int server_sock = -1;//当创建套接字失败时，server_sock 保持为 -1，表示套接字创建失败
-    u_short port = 8080;//u_short 是无符号短整型数据类型的简写，通常用于存储 16 位无符号整数，
+    u_short port = 4000;//u_short 是无符号短整型数据类型的简写，通常用于存储 16 位无符号整数，
     //范围从 0 到 65,535。这个数据类型常常用于网络编程中的端口号，因为端口号在 TCP/IP 协议中也是一个 16 位无符号整数。
 
     int client_sock = -1;//当创建套接字失败时，client_sock 保持为 -1，表示套接字创建失败
@@ -890,8 +890,8 @@ int main(void)
         */
         if (client_sock == -1)
             error_die("accept");
-        accept_request(&client_sock);
-        if (pthread_create(&newthread , NULL, accept_request, (void *)&client_sock) != 0)
+        //accept_request(&client_sock);
+        if (pthread_create(&newthread , NULL, accept_request, (void*)&client_sock) != 0)
             perror("pthread_create");
     }
 
